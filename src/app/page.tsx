@@ -6,6 +6,7 @@ export default function Home() {
   const RWDomains = ["Information and Ideas", "Craft and Structure", "Expression of Ideas", "Standard English Conventions"];
   const mathDomains =  ["Algebra", "Advanced Math", "Problem-Solving and Data Analysis", "Geometry and Trigonometry"];
   const [domain, setDomain] = useState("");
+  const [skill, setSkill] = useState("");
   return (
     <main>
       <div className = 'flex items-center flex-col mt-20 text-4xl gap-8'>
