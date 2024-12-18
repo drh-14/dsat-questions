@@ -44,12 +44,14 @@ export default function Home() {
             setSubject("Math");
             setDomain("");
             setSkill("");
+            setDifficulty("");
 
           }}>Math</MenuItem>
           <MenuItem value = "Reading/Writing" onClick = {() => 
             {setSubject("Reading/Writing");
              setDomain("");
              setSkill("");
+             setDifficulty("");
             }}>Reading/Writing</MenuItem></Select>
         </FormControl>
         <FormControl className = 'w-2/12'>
