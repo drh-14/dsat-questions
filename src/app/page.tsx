@@ -1,7 +1,10 @@
 'use client'
-import {FormControl, MenuItem, Select, InputLabel, Button }  from '@mui/material';
-import { useState } from 'react';
+import {FormControl, MenuItem, Select, InputLabel, Button }  from '@mui/material'
+import { useState } from 'react'
+import { useRouter } from 'next/navigation' 
+
 export default function Home() {
+  const router = useRouter();
   const [subject, setSubject] = useState("");
   const RWDomains = ["Information and Ideas", "Craft and Structure", "Expression of Ideas", "Standard English Conventions"];
   const mathDomains =  ["Algebra", "Advanced Math", "Problem-Solving and Data Analysis", "Geometry and Trigonometry"];
@@ -31,7 +34,7 @@ export default function Home() {
       ], 
   "Geometry and Trigonometry": ["Area and volume", "Lines, angles, and triangles", "Right triangles and trigonometry", "Circles"]
    };
-
+  
   return (
     <main>
       <div className = 'flex items-center flex-col mt-20 text-4xl gap-8'>
@@ -75,7 +78,8 @@ export default function Home() {
             <MenuItem value = "Hard" onClick = {() => setDifficulty("Hard")}>Hard</MenuItem>
           </Select>
         </FormControl>     
-        <Button variant = "contained">Generate my Question!</Button>
+        <Button variant = "contained" onClick = {() => {
+          if(subject != "" && domain != "" && skill != "" && difficulty != ""){router.push('./questionPage');}}}>Generate my Question!</Button>
       </div>
     </main>
   );
