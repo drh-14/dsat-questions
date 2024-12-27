@@ -7,7 +7,9 @@ import { useRouter } from 'next/navigation';
 export default function questionPage(){
     const router = useRouter();
     const [buttonText, setButtonText] = useState("Reveal Answer");
-    const manageAnswer = () => buttonText === "Reveal Answer" ? setButtonText("Hide Answer"): setButtonText("Reveal Answer");
+    const [isHidden, setIsHidden] = useState(true);
+    const manageAnswer = () => buttonText === "Reveal Answer" ? 
+        (setButtonText("Hide Answer"),setIsHidden(false)): (setButtonText("Reveal Answer"), setIsHidden(true));
     return(
         <div className = 'flex flex-col items-center mt-20 gap-8'>
             {/* Question*/}
@@ -15,8 +17,8 @@ export default function questionPage(){
             <Button variant = 'contained'
              onClick = {manageAnswer}>{buttonText}</Button>
              {/* Answer */}
-            <div></div>
-            <Button variant = 'contained' onClick = {() => router.push('./')}>Generate a new question</Button>
+            <div>{isHidden ? null: <div>testing</div>}</div>
+            <Button variant = 'contained' onClick = {() => router.push('./')}>Generate a new question!</Button>
         </div>
     )
 }
