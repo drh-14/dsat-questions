@@ -1,7 +1,7 @@
 'use client'
 
-import { useState } from 'react'
-import { Button } from '@mui/material'
+import { useState } from 'react';
+import { Button } from '@mui/material';
 import { useRouter } from 'next/navigation';
 
 export default function questionPage(){
