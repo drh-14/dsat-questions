@@ -5,6 +5,8 @@ import dotenv from "dotenv";
 
 dotenv.config();
 const pc = new Pinecone({apiKey: process.env.PINECONE_API_KEY || ""});
+const llm = new ChatOpenAI({ temperature: 0 });
+
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse){
     if(req.method === 'POST'){
@@ -14,8 +16,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const skill = data["skill"];
         const difficulty = data["difficulty"];
 
-        const prompt = `Please generate a question with the following parameters: subject = ${subject},
-         domain = ${domain}, skill = ${skill}, difficulty = ${difficulty}. You can either generate the
+
+        const llm = new ChatOpenAI({
+            model: "gpt-4o-mini",
+            temperature: 0
+          });
+
+        const prompt = `Based on similar questions, please generate a question with the following parameters:
+         subject = ${subject}, domain = ${domain}, skill = ${skill}, difficulty = ${difficulty}. You can either generate the
          question with or without a diagram, but make it similar to questions in the specified category 
          and skill. For instance, if questions in the particular skill do not contain diagrams, do not
          create a diagram for the question. To create the diagram, generate code for it and then run it.
