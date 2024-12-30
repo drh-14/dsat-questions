@@ -1,5 +1,10 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
+import { Pinecone } from '@pinecone-database/pinecone';
 import { ChatOpenAI } from "@langchain/openai";
+import dotenv from "dotenv";
+
+dotenv.config();
+const pc = new Pinecone({apiKey: process.env.PINECONE_API_KEY || ""});
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse){
     if(req.method === 'POST'){
@@ -18,14 +23,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
          answerExplanation: string}.\nFor portions containing math expressions, format it in raw LaTeX. For a multiple
          choice question, there should only be 4 answers. diagramURL should be an empty string if there is no diagram,
          and answerChoices should be an empty list if it is not a multiple choice question. Only return the JSON file and
-         do not respond with anything else.
+         do not respond with anything else.`;
 
 
-         
-         
-         
-         
-         `
     }
-
 }
