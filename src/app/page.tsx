@@ -18,7 +18,7 @@ export default function Home() {
     "Expression of Ideas": ["Rhetorical Synthesis", "Transitions"],
     "Standard English Conventions": ["Boundaries", "Form, Structure, and Sense"]
   };
-  const valid_math_skills: {[key:string]: string[]} = {
+  const valid_math_skills: Record<string, string[]> = {
   "": [],
   "Algebra": 
       ["Linear equations in one variable", "Linear functions", "Linear equations in two variables", 
