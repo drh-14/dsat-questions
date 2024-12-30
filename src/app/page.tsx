@@ -34,7 +34,22 @@ export default function Home() {
       ], 
   "Geometry and Trigonometry": ["Area and volume", "Lines, angles, and triangles", "Right triangles and trigonometry", "Circles"]
    };
-  
+
+   const parameters: Record<string, string> = {
+    "Subject": subject,
+    "Domain": domain,
+    "Skill": skill
+   };
+
+   const generateQuestion = () =>
+      fetch('/route',{
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(parameters),
+    });
+   
   return (
     <main>
       <div className = 'flex items-center flex-col mt-20 text-4xl gap-8'>
@@ -79,7 +94,8 @@ export default function Home() {
           </Select>
         </FormControl>     
         <Button variant = "contained" onClick = {() => {
-          if(subject != "" && domain != "" && skill != "" && difficulty != ""){router.push('./questionPage');}}}>Generate my Question!</Button>
+          if(subject != "" && domain != "" && skill != "" && difficulty != "")
+          {(router.push('./questionPage'), generateQuestion())}}}>Generate my Question!</Button>
       </div>
     </main>
   );
