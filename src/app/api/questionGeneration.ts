@@ -1,10 +1,19 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { Pinecone } from '@pinecone-database/pinecone';
+import { OpenAIEmbeddings } from "@langchain/openai";
+import { PineconeStore } from "@langchain/pinecone";
+import { Pinecone as PineconeClient } from "@pinecone-database/pinecone";
 import { ChatOpenAI } from "@langchain/openai";
 import dotenv from "dotenv";
 
 dotenv.config();
-const pc = new Pinecone({apiKey: process.env.PINECONE_API_KEY || ""});
+const pinecone = new PineconeClient();
+const pineconeIndex = pinecone.Index("DSAT-Questions");
+const embeddings = new OpenAIEmbeddings({
+  model: "text-embedding-3-large"
+});
+const vecStore = await PineconeStore.fromExistingIndex(embeddings, {
+  pineconeIndex, maxConcurrency: 5
+})
 const llm = new ChatOpenAI({ temperature: 0 });
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse){
