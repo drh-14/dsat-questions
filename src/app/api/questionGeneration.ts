@@ -8,13 +8,9 @@ import dotenv from "dotenv";
 dotenv.config();
 const pinecone = new PineconeClient();
 const pineconeIndex = pinecone.Index("DSAT-Questions");
-const embeddings = new OpenAIEmbeddings({
-  model: "text-embedding-3-large"
-});
-const vecStore = await PineconeStore.fromExistingIndex(embeddings, {
-  pineconeIndex, maxConcurrency: 5
-})
-const llm = new ChatOpenAI({ temperature: 0 });
+const embeddings = new OpenAIEmbeddings({model: "text-embedding-3-large"});
+const vecStore = await PineconeStore.fromExistingIndex(embeddings, {pineconeIndex, maxConcurrency: 5});
+const llm = new ChatOpenAI({model: "gpt-4o-mini", temperature: 0});
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse){
     if(req.method === 'POST'){
