@@ -34,22 +34,29 @@ export default function Home() {
       ], 
   "Geometry and Trigonometry": ["Area and volume", "Lines, angles, and triangles", "Right triangles and trigonometry", "Circles"]
    };
-
-   const parameters: Record<string, string> = {
-    "Subject": subject,
-    "Domain": domain,
-    "Skill": skill
-   };
-
    const generateQuestion = () =>
       fetch('/route',{
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(parameters),
+        body: JSON.stringify({
+          "Subject": subject,
+          "Domain": domain,
+          "Skill": skill
+         }),
     });
-   
+    const tokenize = (str:string) => {
+      let result = [];
+      let match;
+      const regex = /([^\\]*(?:\\\(.*?\\\)|\\\[.*?\\\]))/g;
+      while(match = regex.exec(str)){
+        result.push(match[0]);
+      }
+      return result;
+    }
+    const letterChoices = ["A", "B", "C", "D"];
+
   return (
     <main>
       <div className = 'flex items-center flex-col mt-20 text-4xl gap-8'>

@@ -7,7 +7,6 @@ dotenv.config();
 const pc = new Pinecone({apiKey: process.env.PINECONE_API_KEY || ""});
 const llm = new ChatOpenAI({ temperature: 0 });
 
-
 export default async function handler(req: NextApiRequest, res: NextApiResponse){
     if(req.method === 'POST'){
         const data = req.body();
@@ -15,13 +14,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const domain = data["domain"];
         const skill = data["skill"];
         const difficulty = data["difficulty"];
-
-
-        const llm = new ChatOpenAI({
-            model: "gpt-4o-mini",
-            temperature: 0
-          });
-
         const prompt = `Based on similar questions, please generate a question with the following parameters:
          subject = ${subject}, domain = ${domain}, skill = ${skill}, difficulty = ${difficulty}. You can either generate the
          question with or without a diagram, but make it similar to questions in the specified category 
@@ -32,7 +24,5 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
          choice question, there should only be 4 answers. diagramURL should be an empty string if there is no diagram,
          and answerChoices should be an empty list if it is not a multiple choice question. Only return the JSON file and
          do not respond with anything else.`;
-
-
     }
 }
