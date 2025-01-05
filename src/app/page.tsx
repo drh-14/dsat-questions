@@ -34,8 +34,9 @@ export default function Home() {
       ], 
   "Geometry and Trigonometry": ["Area and volume", "Lines, angles, and triangles", "Right triangles and trigonometry", "Circles"]
    };
-   const generateQuestion = () =>
-      fetch('/route',{
+   const generateQuestion = async () => {
+    try{
+      const res = await fetch('/route',{
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -46,6 +47,16 @@ export default function Home() {
           "Skill": skill
          }),
     });
+    if(!res.ok){
+      throw new Error(`Error ${res.status}`);
+    }
+    const data = await res.json();
+  }
+  catch(error){
+    console.error(error);
+
+  }
+  }
     const letterChoices = ["A", "B", "C", "D"];
 
   return (

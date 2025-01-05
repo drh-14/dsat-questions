@@ -29,7 +29,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             model: ""
          });
          const responseString = chatCompletion.choices[0].message.content;
-         const response = responseString ? JSON.parse(responseString) : null;
-        
+         return res.status(200).json(responseString);
     }
 }
