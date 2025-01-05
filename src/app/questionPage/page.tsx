@@ -22,10 +22,10 @@ export default function questionPage(){
       };
     const renderQuestion = (question:string) => tokenize(question).map((e) => e[0].startsWith('/')? <span>e</span>:
     <span dangerouslySetInnerHTML={{__html: katex.renderToString(e)}}></span>);
-    const questionImageUrl = "";
-    const questionText = "";
-    const choices: string[] | number[] = [];
-    const answerText = "";
+    const [questionImageUrl, setQuestionImageUrl] = useState("");
+    const [questionText, setQuestionText] = useState("");
+    const [choices, setChoices] = useState<string[] | number[]>([]);
+    const [answerText, setAnswerText] = useState("");
     const manageAnswer = () => buttonText === "Reveal Answer" ? 
         (setButtonText("Hide Answer"),setIsHidden(false)): (setButtonText("Reveal Answer"), setIsHidden(true));
 

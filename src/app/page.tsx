@@ -54,7 +54,6 @@ export default function Home() {
   }
   catch(error){
     console.error(error);
-
   }
   }
     const letterChoices = ["A", "B", "C", "D"];
