@@ -1,7 +1,11 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import dotenv from "dotenv";
+import OpenAI from 'openai';
 
 dotenv.config();
+const openai = new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY
+});
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse){
     if(req.method === 'POST'){
@@ -20,5 +24,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
          choice question, there should only be 4 answers. diagramURL should be an empty string if there is no diagram,
          and answerChoices should be an empty list if it is not a multiple choice question. Only return the JSON file and
          do not respond with anything else.`;
+         const chatCompletion = await openai.chat.completions.create({
+            messages: [{role: 'user', content: prompt}],
+            model: ""
+         });
+         const responseString = chatCompletion.choices[0].message.content;
+         const response = responseString ? JSON.parse(responseString) : null;
+        
     }
 }

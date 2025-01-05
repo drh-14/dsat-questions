@@ -46,15 +46,6 @@ export default function Home() {
           "Skill": skill
          }),
     });
-    const tokenize = (str:string) => {
-      let result = [];
-      let match;
-      const regex = /([^\\]*(?:\\\(.*?\\\)|\\\[.*?\\\]))/g;
-      while(match = regex.exec(str)){
-        result.push(match[0]);
-      }
-      return result;
-    }
     const letterChoices = ["A", "B", "C", "D"];
 
   return (
