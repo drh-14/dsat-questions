@@ -1,12 +1,30 @@
 'use client'
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@mui/material';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import katex from 'katex';
 
 export default function questionPage(){
+    const [questionImageUrl, setQuestionImageUrl] = useState("");
+    const [questionText, setQuestionText] = useState("");
+    const [choice1, setChoice1] = useState("");
+    const [choice2, setChoice2] = useState("");
+    const [choice3, setChoice3] = useState("");
+    const [choice4, setChoice4] = useState("");
+    const [choices, setChoices] = useState<string[]>([]);
+    const [answerText, setAnswerText] = useState("");
+    useEffect(() => {
+        setQuestionImageUrl(localStorage.getItem("questionImageUrl") || "");
+        setQuestionText(localStorage.getItem("questionText") || "");
+        setAnswerText(localStorage.getItem("answerText") || "");
+        setChoice1(localStorage.getItem("choice1") || "");
+        setChoice2(localStorage.getItem("choice2") || "");
+        setChoice3(localStorage.getItem("choice3") || "");
+        setChoice4(localStorage.getItem("choice4") || "");
+        setChoices([choice1, choice2, choice3, choice4]);
+    }, []);
     const router = useRouter();
     const [buttonText, setButtonText] = useState("Reveal Answer");
     const [isHidden, setIsHidden] = useState(true);
@@ -22,10 +40,6 @@ export default function questionPage(){
       };
     const renderQuestion = (question:string) => tokenize(question).map((e) => e[0].startsWith('/')? <span>e</span>:
     <span dangerouslySetInnerHTML={{__html: katex.renderToString(e)}}></span>);
-    const [questionImageUrl, setQuestionImageUrl] = useState("");
-    const [questionText, setQuestionText] = useState("");
-    const [choices, setChoices] = useState<string[] | number[]>([]);
-    const [answerText, setAnswerText] = useState("");
     const manageAnswer = () => buttonText === "Reveal Answer" ? 
         (setButtonText("Hide Answer"),setIsHidden(false)): (setButtonText("Reveal Answer"), setIsHidden(true));
 

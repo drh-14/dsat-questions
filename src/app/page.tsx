@@ -51,13 +51,13 @@ export default function Home() {
       throw new Error(`Error ${res.status}`);
     }
     const data = await res.json();
+    
   }
   catch(error){
     console.error(error);
   }
   }
-    const letterChoices = ["A", "B", "C", "D"];
-
+ 
   return (
     <main>
       <div className = 'flex items-center flex-col mt-20 text-4xl gap-8'>
