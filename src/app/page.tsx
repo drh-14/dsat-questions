@@ -51,7 +51,13 @@ export default function Home() {
       throw new Error(`Error ${res.status}`);
     }
     const data = await res.json();
-    
+    localStorage.setItem("questionImageUrl", data["questionImageUrl"]);
+    localStorage.setItem("questionText", data["questionText"]);
+    localStorage.setItem("choice1", data["choices"][0]);
+    localStorage.setItem("choice2", data["choices"][1]);
+    localStorage.setItem("choice3", data["choices"][2]);
+    localStorage.setItem("choice4", data["choices"][3]);
+    localStorage.setItem("questionText", data["questionText"]); 
   }
   catch(error){
     console.error(error);
