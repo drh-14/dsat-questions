@@ -36,7 +36,7 @@ export default function Home() {
    };
    const generateQuestion = async () => {
     try{
-      const res = await fetch('/route',{
+      const res = await fetch('/api',{
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
