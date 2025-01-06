@@ -1,7 +1,7 @@
 'use client'
-import {FormControl, MenuItem, Select, InputLabel, Button }  from '@mui/material'
-import { useState } from 'react'
-import { useRouter } from 'next/navigation' 
+import {FormControl, MenuItem, Select, InputLabel, Button }  from '@mui/material';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 export default function Home() {
   const router = useRouter();
@@ -11,6 +11,7 @@ export default function Home() {
   const [domain, setDomain] = useState("");
   const [skill, setSkill] = useState("");
   const [difficulty, setDifficulty] = useState("");
+  const [buttonText, setButtonText] = useState("Generate My Question!");
   const valid_reading_and_writing_skills: {[key:string]: string[]} = {
     "": [],
     "Information and Ideas": ["Central Ideas and Details", "Inferences", "Command of Evidence"], 
@@ -35,6 +36,7 @@ export default function Home() {
   "Geometry and Trigonometry": ["Area and volume", "Lines, angles, and triangles", "Right triangles and trigonometry", "Circles"]
    };
    const generateQuestion = async () => {
+    setButtonText("Generating Question...");
     try{
       const res = await fetch('/api',{
         method: 'POST',
@@ -58,6 +60,8 @@ export default function Home() {
     localStorage.setItem("choice3", data["choices"][2]);
     localStorage.setItem("choice4", data["choices"][3]);
     localStorage.setItem("questionText", data["questionText"]); 
+    setButtonText("Generate My Question!");
+    router.push("./questionPage");
   }
   catch(error){
     console.error(error);
@@ -109,7 +113,7 @@ export default function Home() {
         </FormControl>     
         <Button variant = "contained" onClick = {() => {
           if(subject != "" && domain != "" && skill != "" && difficulty != "")
-          {(router.push('./questionPage'), generateQuestion())}}}>Generate my Question!</Button>
+          {generateQuestion}}}>{buttonText}</Button>
       </div>
     </main>
   );
