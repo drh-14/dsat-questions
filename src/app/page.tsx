@@ -38,7 +38,7 @@ export default function Home() {
    const generateQuestion = async () => {
     setButtonText("Generating Question...");
     try{
-      const res = await fetch('/api',{
+      const res = await fetch('/api/questionGeneration',{
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -111,9 +111,7 @@ export default function Home() {
             <MenuItem value = "Hard" onClick = {() => setDifficulty("Hard")}>Hard</MenuItem>
           </Select>
         </FormControl>     
-        <Button variant = "contained" onClick = {() => {
-          if(subject != "" && domain != "" && skill != "" && difficulty != "")
-          {generateQuestion}}}>{buttonText}</Button>
+        <Button variant = "contained" onClick = {generateQuestion}>{buttonText}</Button>
       </div>
     </main>
   );

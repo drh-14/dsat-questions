@@ -1,15 +1,12 @@
-import type { NextApiRequest, NextApiResponse } from 'next';
-import dotenv from "dotenv";
+import { NextResponse } from 'next/server';
 import OpenAI from 'openai';
 
-dotenv.config();
-const openai = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY
-});
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse){
-    if(req.method === 'POST'){
-        const data = req.body();
+export async function POST(req:Request){
+    const openai = new OpenAI({
+        apiKey: process.env.OPENAI_API_KEY
+    });
+        const data = await req.json();
         const subject = data["subject"];
         const domain = data["domain"];
         const skill = data["skill"];
@@ -26,9 +23,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
          do not respond with anything else.`;
          const chatCompletion = await openai.chat.completions.create({
             messages: [{role: 'user', content: prompt}],
-            model: ""
+            model: "chatgpt-4o-latest"
          });
          const responseString = chatCompletion.choices[0].message.content;
-         return res.status(200).json(responseString);
-    }
+         return NextResponse.json({data: responseString});
 }
