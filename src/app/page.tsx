@@ -46,13 +46,15 @@ export default function Home() {
         body: JSON.stringify({
           "Subject": subject,
           "Domain": domain,
-          "Skill": skill
+          "Skill": skill,
+          "Difficulty": difficulty
          }),
     });
     if(!res.ok){
       throw new Error(`Error ${res.status}`);
     }
-    const data = await res.json();
+    const payload = await res.json();
+    const data = payload.data;
     localStorage.setItem("questionImageUrl", data["questionImageUrl"]);
     localStorage.setItem("questionText", data["questionText"]);
     localStorage.setItem("choice1", data["choices"][0]);
