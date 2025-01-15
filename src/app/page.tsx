@@ -57,13 +57,16 @@ export default function Home() {
     const data = payload.data;
     localStorage.setItem("questionImageUrl", data["questionImageUrl"]);
     localStorage.setItem("questionText", data["questionText"]);
-    localStorage.setItem("choice1", data["choices"][0]);
-    localStorage.setItem("choice2", data["choices"][1]);
-    localStorage.setItem("choice3", data["choices"][2]);
-    localStorage.setItem("choice4", data["choices"][3]);
+    if(data["choices"]){
+      localStorage.setItem("choices", JSON.stringify(data["choices"]));
+    }
     localStorage.setItem("questionText", data["questionText"]); 
-    setButtonText("Generate My Question!");
+    localStorage.setItem("answerText", data["answerText"]);
+    if(data["passageText"]){
+      localStorage.setItem("passageText", data["passageText"]);
+    }
     router.push("./questionPage");
+    setButtonText("Generate My Question!");
   }
   catch(error){
     console.error(error);
