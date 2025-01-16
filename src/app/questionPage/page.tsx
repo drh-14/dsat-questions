@@ -7,7 +7,7 @@ import Image from 'next/image';
 import 'katex/dist/katex.min.css';
 import Latex from 'react-latex-next';
 
-export default function questionPage(){
+export default function QuestionPage(){
     const [questionImageUrl, setQuestionImageUrl] = useState<string>("");
     const [questionText, setQuestionText] = useState<string>("");
     const [passageText, setPassageText] = useState<string>("");
