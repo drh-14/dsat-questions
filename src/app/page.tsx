@@ -73,7 +73,6 @@ export default function Home() {
     console.error(error);
   }
   }
- 
   return (
     <main>
       <div className = 'flex items-center flex-col mt-20 text-4xl gap-8'>
