@@ -35,6 +35,7 @@ export default function Home() {
       ], 
   "Geometry and Trigonometry": ["Area and volume", "Lines, angles, and triangles", "Right triangles and trigonometry", "Circles"]
    };
+   const difficulties = ["Easy", "Medium", "Hard"];
    const generateQuestion = async () => {
     setButtonText("Generating Question...");
     try{
@@ -98,7 +99,7 @@ export default function Home() {
         <FormControl className = 'w-2/12'>
           <InputLabel>Domain</InputLabel>
           <Select value = {domain}>
-            {(subject === "Reading/Writing") ? RWDomains.map((text) => <MenuItem key = {text} value = {text} onClick = {() => setDomain(text)}>{text}</MenuItem>): mathDomains.map((text) => <MenuItem key = {text} value = {text} onClick = {() => setDomain(text)}>{text}</MenuItem>)}
+            {subject? (subject === "Reading/Writing") ? RWDomains.map((text) => <MenuItem key = {text} value = {text} onClick = {() => setDomain(text)}>{text}</MenuItem>): mathDomains.map((text) => <MenuItem key = {text} value = {text} onClick = {() => setDomain(text)}>{text}</MenuItem>): null}
           </Select>
         </FormControl>
         <FormControl className = 'w-2/12'>
@@ -111,9 +112,7 @@ export default function Home() {
         <FormControl className = 'w-2/12'>
           <InputLabel>Difficulty</InputLabel>
           <Select value = {difficulty}>
-            <MenuItem value = "Easy" onClick = {() => setDifficulty("Easy")}>Easy</MenuItem>
-            <MenuItem value = "Medium" onClick = {() => setDifficulty("Medium")}>Medium</MenuItem>
-            <MenuItem value = "Hard" onClick = {() => setDifficulty("Hard")}>Hard</MenuItem>
+            {skill ? difficulties.map((d, index) => <MenuItem value = {d} key = {index} onClick = {() => setDifficulty(d)}>{d}</MenuItem>): null}
           </Select>
         </FormControl>     
         <Button variant = "contained" onClick = {generateQuestion}>{buttonText}</Button>
